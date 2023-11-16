@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  
+  - let results = [{cakeFlavor: "chocolate", iceFlavor: "chocolate", sprinkleAmount: 0}, {cakeFlavor: "regular", iceFlavor: "glazed", sprinkleAmount: 5}, {cakeFlavor: "regular", iceFlavor: "strawberry", sprinkleAmount: 10}];
+
+  div(class="container-fluid")
+    div(class="row") 
+      - 
+      each item in results
+        div(class="col-sm-2") 
+          p Cake Flavor: #{item.cakeFlavor}
+          p Icing Flavor: #{item.iceFlavor}
+          p Sprinkle Amount: #{item.sprinkleAmount}
