@@ -3,13 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var donutRouter = require("./routes/donut");
-var boardRouter = require("./routes/board");
-
-var app = express();
+var Donut = require("./models/donut");
 
 require("dotenv").config();
 const connectionString = process.env.MONGO_CON;
@@ -23,6 +17,67 @@ db.on("error", console.error.bind(console, "MongoDB connectionerror:"));
 db.once("open", function () {
   console.log("Connection to DB succeeded");
 });
+
+// We can seed the collection if needed on server start
+async function recreateDB() {
+  // Delete everything
+  await Donut.deleteMany();
+
+  let instance1 = new Donut({
+    cakeFlavor: "chocolate",
+    iceFlavor: "glazed",
+    sprinkleAmount: 5,
+  });
+  let instance2 = new Donut({
+    cakeFlavor: "regular",
+    iceFlavor: "chocolate",
+    sprinkleAmount: 10,
+  });
+  let instance3 = new Donut({
+    cakeFlavor: "regular",
+    iceFlavor: "strawberry",
+    sprinkleAmount: 5,
+  });
+
+  instance1
+    .save()
+    .then((doc) => {
+      console.log("First object saved");
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  instance2
+    .save()
+    .then((doc) => {
+      console.log("Second object saved");
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  instance3
+    .save()
+    .then((doc) => {
+      console.log("Third object saved");
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+}
+
+let reseed = true;
+if (reseed) {
+  recreateDB();
+}
+
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/users");
+var donutRouter = require("./routes/donut");
+var boardRouter = require("./routes/board");
+var chooseRouter = require("./routes/choose");
+var resourceRouter = require("./routes/resource");
+
+var app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -38,6 +93,8 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/donut", donutRouter);
 app.use("/board", boardRouter);
+app.use("/choose", chooseRouter);
+app.use("/resource", resourceRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
