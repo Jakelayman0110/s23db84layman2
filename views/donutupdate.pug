@@ -1,0 +1,42 @@
+extends layout
+block content
+h1= title
+- let donutid = toShow._id
+- let donut_type = toShow.donut_type
+- let donutcost = toShow.cost
+- let donutsize = toShow.size
+div.row(class='mb-2')
+div.mr-1 ID is
+div #{donutid}
+- let actionid = "/resource/donut/" + donutid
+form(id='DonutForm', action= actionid, method="PUT")
+div.form-group
+label.donutAttr(for='costume_type') Donut type
+input#donut_type(type='text', name='donut_type', value= donut_type )
+div.form-group
+label.donutAttr(for='size') Donut size
+input#size(type='text', name='size', value= donutsize )
+div.form-group
+label.donutAttr(for='cost') Donut cost
+input#cost(type='number', name='cost', value= donutcost )
+input(type="submit")
+script.
+document.forms['CostumeForm'].addEventListener('submit', (event) => {
+event.preventDefault();
+// TODO do something here to show user that form is being submitted
+fetch(event.target.action, {
+method: 'PUT',
+body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+}).then((resp) => {
+return resp.json(); // or resp.text() or whatever the server sends
+}).then((body) => {
+alert("Update succeded")
+// TODO handle body
+}).catch((error) => {
+// TODO handle error
+alert("Update failed " + error )
+});
+});
+/* GET delete donutpage */
+router.get('/delete', donut_controllers.donut_delete_Page);
+

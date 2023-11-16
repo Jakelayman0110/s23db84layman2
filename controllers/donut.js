@@ -17,6 +17,32 @@ exports.donut_detail = async function (req, res) {
   }
 };
 
+// Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.donut_create_Page = function (req, res) {
+  console.log("create view");
+  try {
+    res.render("donutcreate", { title: "Donut Create" });
+  } catch (err) {
+    res.status(500);
+    res.send(`{'error': '${err}'}`);
+  }
+};
+
+// Handle building the view for updating a costume.
+// query provides the id
+exports.donut_update_Page = async function (req, res) {
+  console.log("update view for item " + req.query.id);
+  try {
+    let result = await Donut.findById(req.query.id);
+    res.render("donutupdate", { title: "Donut Update", toShow: result });
+  } catch (err) {
+    res.status(500);
+    res.send(`{'error': '${err}'}`);
+  }
+};
+
 // Handle Donut create on POST.
 exports.donut_create_post = async function (req, res) {
   console.log(req.body);
@@ -46,6 +72,18 @@ exports.donut_delete = async function (req, res) {
   } catch (err) {
     res.status(500);
     res.send(`{"error": Error deleting ${err}}`);
+  }
+};
+
+// Handle a delete one view with id from query
+exports.donut_delete_Page = async function (req, res) {
+  console.log("Delete view for id " + req.query.id);
+  try {
+    result = await Donut.findById(req.query.id);
+    res.render("donutdelete", { title: "Donut Delete", toShow: result });
+  } catch (err) {
+    res.status(500);
+    res.send(`{'error': '${err}'}`);
   }
 };
 
