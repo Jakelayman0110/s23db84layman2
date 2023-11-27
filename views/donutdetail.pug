@@ -1,20 +1,20 @@
 extends layout
 block content
 h1= title
-- let costumeid = toShow._id
-- let costume_type = toShow.costume_type
-- let costumecost = toShow.cost
-- let costumesize = toShow.size
+- let donutid = toShow._id
+- let cakeFlavor = toShow.cakeFlavor
+- let iceFlavor = toShow.iceFlavor
+- let sprinkleAmount = toShow.sprinkleAmount
 div
 div.row
 div(class='donutAttr mr-3') Donut ID is:
 div #{donutid}
 div.row
-div(class='donutAttr mr-3') Donut Type is:
-div #{donut_type}
+div(class='donutAttr mr-3') Cake Flavor is:
+div #{cakeFlavor}
 div.row
-div(class='donutAttr mr-3') Donut Size is:
-div #{donutsize}
+div(class='donutAttr mr-3') Icing Flavor is:
+div #{iceFlavor}
 div.row
-div(class='donutAttr mr-3') Donut Cost is:
-div #{donutcost}
+div(class='donutAttr mr-3') Sprinkle Amount is:
+div #{sprinkleAmount}

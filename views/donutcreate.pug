@@ -1,16 +1,16 @@
 extends layout
 block content
 h1= title
-form(id='DonutForm', action="/resource/donut", method="POST")
+form(id='DonutForm', action= actionid, method="PUT")
 div.form-group
-label.donutAttr(for='donut_type') Costume type
-input#donut_type(type='text', name='donut_type')
+label.donutAttr(for='costume_type') Donut type
+input#donut_type(type='text', name='cakeFlavor', value= iceFlavor )
 div.form-group
 label.donutAttr(for='size') Donut size
-input#size(type='text', name='size')
+input#size(type='text', name='iceFlavor', value= cakeFlavor )
 div.form-group
 label.donutAttr(for='cost') Donut cost
-input#cost(type='number', name='cost')
+input#cost(type='number', name='sprinkleAmount', value= sprinkleAmount )
 input(type="submit")
 script.
 document.forms['DonutForm'].addEventListener('submit', (event) => {

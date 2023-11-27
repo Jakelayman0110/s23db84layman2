@@ -4,15 +4,15 @@ h1= title
 if (toShow == null)
 h2 No instance to delete
 else
-- let costumeid = toShow._id
-- let costume_type = toShow.costume_type
-- let costumecost = toShow.cost
-- let costumesize = toShow.size
-- let actionid = "/resource/costumes/" + costumeid
+- let donutid = toShow._id
+- let cakeFlavor = toShow.cakeFlavor
+- let iceFlavor = toShow.iceFlavor
+- let sprinkleAmount = toShow.sprinkleAmount
+- let actionid = "/resource/donut/" + donutid
 script let actionid = "#{actionid}"
 div
 div.row
-div(class='costumeAttr mr-3') Costume ID is:
+div(class='costumeAttr mr-3') Donut ID is:
 div #{donutid}
 div.row
 div(class='donutAttr mr-3') Donut Type is:

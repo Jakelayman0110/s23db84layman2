@@ -2,9 +2,9 @@ extends layout
 block content
 h1= title
 - let donutid = toShow._id
-- let donut_type = toShow.donut_type
-- let donutcost = toShow.cost
-- let donutsize = toShow.size
+- let cakeFlavor = toShow.cakeFlavor
+- let iceFlavor = toShow.iceFlavor
+- let sprinkleAmount = toShow.sprinkleAmount
 div.row(class='mb-2')
 div.mr-1 ID is
 div #{donutid}
@@ -12,13 +12,13 @@ div #{donutid}
 form(id='DonutForm', action= actionid, method="PUT")
 div.form-group
 label.donutAttr(for='costume_type') Donut type
-input#donut_type(type='text', name='donut_type', value= donut_type )
+input#donut_type(type='text', name='cakeFlavor', value= iceFlavor )
 div.form-group
 label.donutAttr(for='size') Donut size
-input#size(type='text', name='size', value= donutsize )
+input#size(type='text', name='iceFlavor', value= cakeFlavor )
 div.form-group
 label.donutAttr(for='cost') Donut cost
-input#cost(type='number', name='cost', value= donutcost )
+input#cost(type='number', name='sprinkleAmount', value= sprinkleAmount )
 input(type="submit")
 script.
 document.forms['CostumeForm'].addEventListener('submit', (event) => {
