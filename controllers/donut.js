@@ -66,7 +66,7 @@ exports.donut_create_post = async function (req, res) {
 exports.donut_delete = async function (req, res) {
   console.log("delete " + req.params.id);
   try {
-    result = await Costume.findByIdAndDelete(req.params.id);
+    result = await Donut.findByIdAndDelete(req.params.id);
     console.log("Removed " + result);
     res.send(result);
   } catch (err) {
