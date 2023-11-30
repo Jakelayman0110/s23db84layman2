@@ -10,6 +10,37 @@ const connectionString = process.env.MONGO_CON;
 mongoose = require("mongoose");
 mongoose.connect(connectionString);
 
+passport.use(
+  new LocalStrategy(function (username, password, done) {
+    Account.findOne({ username: username })
+      .then(function (user) {
+        if (err) {
+          return done(err);
+        }
+        if (!user) {
+          return done(null, false, { message: "Incorrect username." });
+        }
+        if (!user.validPassword(password)) {
+          return done(null, false, { message: "Incorrect password." });
+        }
+        return done(null, user);
+      })
+      .catch(function (err) {
+        return done(err);
+      });
+  }),
+);
+
+app.use(
+  require("express-session")({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
 //Get the default connection
 var db = mongoose.connection;
 //Bind connection to error event
