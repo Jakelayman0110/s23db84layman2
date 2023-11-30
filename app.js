@@ -10,6 +10,18 @@ const connectionString = process.env.MONGO_CON;
 mongoose = require("mongoose");
 mongoose.connect(connectionString);
 
+var passport = require("passport");
+var LocalStrategy = require("passport-local").Strategy;
+
+// passport config
+// Use the existing connection
+// The Account model
+var Account = require("./models/account");
+
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
 passport.use(
   new LocalStrategy(function (username, password, done) {
     Account.findOne({ username: username })
